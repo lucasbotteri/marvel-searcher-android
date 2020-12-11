@@ -37,6 +37,7 @@ android {
 }
 
 dependencies {
+    def dagger_version = "2.28.3"
 
     // Kotlin stdLib
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -60,5 +61,10 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
 
+    // Dagger
+    implementation "com.google.dagger:dagger:$dagger_version"
+    implementation "com.google.dagger:dagger-android-support:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
 
 }
