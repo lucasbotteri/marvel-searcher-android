@@ -1,4 +1,4 @@
-package com.example.marvelsearcher.di
+package com.example.marvelsearcher.di.modules
 
 import com.example.marvelsearcher.ui.ComicDetails
 import com.example.marvelsearcher.ui.ComicList

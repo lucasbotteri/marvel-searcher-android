@@ -2,6 +2,8 @@ package com.example.marvelsearcher.di
 
 import android.app.Application
 import com.example.marvelsearcher.MarvelSearcherApp
+import com.example.marvelsearcher.di.modules.AppModule
+import com.example.marvelsearcher.di.modules.MainActivityModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule

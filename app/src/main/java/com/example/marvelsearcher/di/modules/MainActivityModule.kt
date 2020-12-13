@@ -1,4 +1,4 @@
-package com.example.marvelsearcher.di
+package com.example.marvelsearcher.di.modules
 
 import com.example.marvelsearcher.MainActivity
 import dagger.Module
