@@ -3,8 +3,8 @@ package com.example.marvelsearcher.di.modules
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.marvelsearcher.di.keys.ViewModelKey
-import com.example.marvelsearcher.viewmodel.ComicDetailsViewModel
-import com.example.marvelsearcher.viewmodel.ComicListViewModel
+import com.example.marvelsearcher.viewmodel.CharacterDetailsViewModel
+import com.example.marvelsearcher.viewmodel.CharacterListViewModel
 import com.example.marvelsearcher.viewmodel.ViewModelFactory
 import dagger.Binds
 import dagger.Module
@@ -14,13 +14,13 @@ import dagger.multibindings.IntoMap
 abstract class ViewModelModule {
     @Binds
     @IntoMap
-    @ViewModelKey(ComicListViewModel::class)
-    abstract fun bindComicListViewModel(ComicListViewModel: ComicListViewModel): ViewModel
+    @ViewModelKey(CharacterListViewModel::class)
+    abstract fun bindCharacterListViewModel(CharacterListViewModel: CharacterListViewModel): ViewModel
 
     @Binds
     @IntoMap
-    @ViewModelKey(ComicDetailsViewModel::class)
-    abstract fun bindComicDetailsViewModel(ComicDetailsViewModel: ComicDetailsViewModel): ViewModel
+    @ViewModelKey(CharacterDetailsViewModel::class)
+    abstract fun bindCharacterDetailsListViewModel(CharacterDetailsViewModel: CharacterDetailsViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

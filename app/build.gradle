@@ -15,6 +15,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -42,6 +43,7 @@ dependencies {
     def nav_version = "2.3.2"
     def retrofit_version = '2.9.0'
     def moshi_version = "1.9.3"
+    def room_version = "2.2.5"
 
     // Kotlin stdLib
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -84,7 +86,18 @@ dependencies {
     // Moshi Json Parser
     implementation "com.squareup.moshi:moshi:$moshi_version"
     implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
+    kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.9.1'
 
     // Kotlin Coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
+
+    // Room
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+
+    // Multidex - Why do i have to do this ?
+    implementation "com.android.support:multidex:1.0.3"
+
+
 }

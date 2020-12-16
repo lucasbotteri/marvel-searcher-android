@@ -8,6 +8,7 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Singleton
@@ -23,6 +24,12 @@ interface AppComponent : AndroidInjector<MarvelSearcherApp> {
     interface Builder {
         @BindsInstance
         fun application(application: Application): Builder
+
+        @BindsInstance
+        fun marvelBaseUrl(@Named("MARVEL_BASE_URL") MARVEL_BASE_URL: String): Builder
+
+        @BindsInstance
+        fun marvelApiKey(@Named("MARVEL_API_KEY") MARVEL_API_KEY: String): Builder
 
         fun build(): AppComponent
     }

@@ -11,6 +11,5 @@ abstract class MainActivityModule {
                 FragmentBuilderModule::class
             ]
     )
-
     abstract fun contributeMainActivity(): MainActivity
 }

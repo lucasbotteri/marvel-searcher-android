@@ -8,29 +8,37 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.marvelsearcher.R
-import com.example.marvelsearcher.viewmodel.ComicListViewModel
+import com.example.marvelsearcher.databinding.CharacterListFragmentBinding
+import com.example.marvelsearcher.viewmodel.CharacterListViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class ComicList : DaggerFragment() {
+class CharacterList : DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel: ComicListViewModel by viewModels { viewModelFactory }
+    lateinit var binding: CharacterListFragmentBinding
+
+    private val viewModel: CharacterListViewModel by viewModels { viewModelFactory }
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.comic_list_fragment, container, false)
+    ): View {
+        binding = CharacterListFragmentBinding.inflate(inflater)
+
+        viewModel.characters.observe(viewLifecycleOwner, {ch -> Log.d("First character", if (ch.isNotEmpty()) ch.first().name else "Empty List" )})
+        binding.button.setOnClickListener {
+            viewModel.searchCharacter()
+        }
+
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        // TODO: Use the ViewModel
-       viewModel.infoText.observe(viewLifecycleOwner, {text -> Log.d("aaaa", text)})
     }
 
 }
