@@ -1,5 +1,6 @@
 package com.example.marvelsearcher.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.marvelsearcher.database.dao.CharacterDAO
 import com.example.marvelsearcher.database.entity.CharacterEntity
@@ -16,8 +17,10 @@ class CharacterRepository @Inject constructor (private val characterService: Cha
     suspend fun getCharactersByName(name: String) {
         // TODO Handle error responses
         withContext(Dispatchers.IO){
-            val charactersResponse = characterService.getCharactersByName(name)
-            characterDAO.insertAll(*charactersResponse.data.results.asDatabaseEntity().toTypedArray())
+            val charactersResponse = characterService.getCharactersByName(name).let {
+                it.data.results.asDatabaseEntity()
+            }
+            characterDAO.insertAll(*charactersResponse.toTypedArray())
         }
     }
 }

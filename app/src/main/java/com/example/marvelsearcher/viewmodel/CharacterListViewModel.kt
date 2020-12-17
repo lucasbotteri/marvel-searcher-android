@@ -8,6 +8,10 @@ import javax.inject.Inject
 
 class CharacterListViewModel @Inject constructor(private val characterRepository: CharacterRepository) : ViewModel() {
 
+    init {
+        searchCharacter()
+    }
+
     fun searchCharacter() {
         viewModelScope.launch {
             characterRepository.getCharactersByName("spi")

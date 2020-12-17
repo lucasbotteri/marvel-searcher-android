@@ -3,6 +3,7 @@ package com.example.marvelsearcher.database.dao
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.marvelsearcher.database.entity.CharacterEntity
 
@@ -11,6 +12,6 @@ interface CharacterDAO {
     @Query("SELECT * FROM character")
     fun getAll(): LiveData<List<CharacterEntity>>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg characters: CharacterEntity)
 }

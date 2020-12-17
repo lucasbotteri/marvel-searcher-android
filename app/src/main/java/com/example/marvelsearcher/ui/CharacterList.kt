@@ -7,8 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.marvelsearcher.R
 import com.example.marvelsearcher.databinding.CharacterListFragmentBinding
+import com.example.marvelsearcher.ui.adapter.CharacterAdapter
 import com.example.marvelsearcher.viewmodel.CharacterListViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -22,6 +26,7 @@ class CharacterList : DaggerFragment() {
 
     private val viewModel: CharacterListViewModel by viewModels { viewModelFactory }
 
+    lateinit var characterAdapter: CharacterAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,16 +34,16 @@ class CharacterList : DaggerFragment() {
     ): View {
         binding = CharacterListFragmentBinding.inflate(inflater)
 
-        viewModel.characters.observe(viewLifecycleOwner, {ch -> Log.d("First character", if (ch.isNotEmpty()) ch.first().name else "Empty List" )})
-        binding.button.setOnClickListener {
-            viewModel.searchCharacter()
-        }
+        characterAdapter = CharacterAdapter()
+        binding.characterRecyclerView.layoutManager = LinearLayoutManager(context)
+        binding.characterRecyclerView.adapter = characterAdapter
 
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        viewModel.characters.observe(viewLifecycleOwner, characterAdapter::submitList)
     }
 
 }

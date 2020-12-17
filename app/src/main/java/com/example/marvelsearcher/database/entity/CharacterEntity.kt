@@ -8,5 +8,6 @@ import androidx.room.PrimaryKey
 data class CharacterEntity(
     @PrimaryKey var id: Long,
     var name: String,
-    @ColumnInfo(name = "image_path") var imagePath: String ?
+    @ColumnInfo(name = "image_path") var imageUrl: String,
+    @ColumnInfo var description: String
     )
