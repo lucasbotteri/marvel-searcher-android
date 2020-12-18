@@ -5,14 +5,14 @@ import com.example.marvelsearcher.database.entity.CharacterEntity
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class CharacterWrapperDTO(
+data class CharactersWrapperDTO(
         val code: Int,
         val status: String,
-        val data: CharacterDataContainerDTO
+        val data: CharactersDataContainerDTO
 )
 
 @JsonClass(generateAdapter = true)
-data class CharacterDataContainerDTO(
+data class CharactersDataContainerDTO(
     val offset: Int,
     val limit: Int,
     val total: Int,
@@ -21,7 +21,7 @@ data class CharacterDataContainerDTO(
 )
 
 // TODO this has a hardcoded dependency
-fun List<CharacterDTO>.asDatabaseEntity(): List<CharacterEntity> = map { c -> CharacterEntity(c.id, c.name, "${c.thumbnail.path.replace("http", "https")}/${Constant.MARVEL_THUMBNAIL_SIZE}" ) }
+fun List<CharacterDTO>.asDatabaseEntity(): List<CharacterEntity> = map { c -> c.asDatabaseEntity() }
 
 @JsonClass(generateAdapter = true)
 data class CharacterDTO(
@@ -30,3 +30,6 @@ data class CharacterDTO(
     val description: String,
     val thumbnail: ImageDTO
 )
+
+// TODO this has a hardcoded dependency
+fun CharacterDTO.asDatabaseEntity() = CharacterEntity(id, name, "${thumbnail.path.replace("http", "https")}/${Constant.MARVEL_THUMBNAIL_SIZE}", description )

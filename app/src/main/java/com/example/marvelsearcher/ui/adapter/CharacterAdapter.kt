@@ -2,6 +2,8 @@ package com.example.marvelsearcher.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
@@ -11,8 +13,9 @@ import com.example.marvelsearcher.R
 import com.example.marvelsearcher.database.entity.CharacterEntity
 import com.example.marvelsearcher.databinding.CharacterItemBinding
 
-class CharacterAdapter():
+class CharacterAdapter(val onClick: (CharacterEntity, ImageView, TextView) -> Unit):
     ListAdapter<CharacterEntity, CharacterAdapter.ViewHolder>(DiffCallback()) {
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -26,14 +29,21 @@ class CharacterAdapter():
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.viewDataBinding.character =  getItem(position)
+        holder.viewDataBinding.characterListener = CharacterListener {
+            onClick(it, holder.viewDataBinding.characterItemImage, holder.viewDataBinding.characterItemName)
+        }
+        // TODO should i do this?
+        holder.viewDataBinding.executePendingBindings()
     }
 
 
     class ViewHolder(val viewDataBinding: CharacterItemBinding): RecyclerView.ViewHolder(viewDataBinding.root){
+
         companion object {
             @LayoutRes
             val LAYOUT = R.layout.character_item
         }
+
     }
 
     class DiffCallback: DiffUtil.ItemCallback<CharacterEntity>() {
@@ -43,6 +53,10 @@ class CharacterAdapter():
             oldItem: CharacterEntity,
             newItem: CharacterEntity
         ): Boolean = oldItem == newItem
+    }
+
+    class CharacterListener(val block: (CharacterEntity) -> Unit) {
+        fun onClick(character: CharacterEntity) = block(character)
     }
 
 

@@ -3,20 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/comicListFragment">
+    app:startDestination="@id/characterList">
+
 
     <fragment
-        android:id="@+id/comicListFragment"
+        android:id="@+id/characterList"
         android:name="com.example.marvelsearcher.ui.CharacterList"
-        android:label="comic_list_fragment"
+        android:label="character_list_fragment"
         tools:layout="@layout/character_list_fragment" >
         <action
-            android:id="@+id/action_comicListFragment_to_comicDetails"
-            app:destination="@id/comicDetails" />
+            android:id="@+id/action_characterList_to_characterDetails"
+            app:destination="@id/characterDetails"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/characterList" />
     </fragment>
     <fragment
-        android:id="@+id/comicDetails"
+        android:id="@+id/characterDetails"
         android:name="com.example.marvelsearcher.ui.CharacterDetails"
-        android:label="comic_details_fragment"
-        tools:layout="@layout/character_details_fragment" />
+        android:label="character_details_fragment"
+        tools:layout="@layout/character_details_fragment" >
+        <argument
+            android:name="characterId"
+            app:argType="long" />
+        <argument
+            android:name="imageUrl"
+            app:argType="string" />
+        <argument android:name="characterName"
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -17,10 +17,17 @@ class CharacterRepository @Inject constructor (private val characterService: Cha
     suspend fun getCharactersByName(name: String) {
         // TODO Handle error responses
         withContext(Dispatchers.IO){
-            val charactersResponse = characterService.getCharactersByName(name).let {
-                it.data.results.asDatabaseEntity()
-            }
+            val charactersResponse = characterService.getCharactersByName(name).data.results.asDatabaseEntity()
             characterDAO.insertAll(*charactersResponse.toTypedArray())
         }
     }
+
+    // TODO should i check if is in DB, and fetch character if not?
+    suspend fun getCharacterById(characterId: Long): CharacterEntity {
+        return withContext(Dispatchers.IO){
+            return@withContext characterService.getCharactersById(characterId).data.results.first().asDatabaseEntity()
+        }
+    }
+
+
 }
