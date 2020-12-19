@@ -1,21 +1,18 @@
 package com.example.marvelsearcher.ui
 
-import androidx.lifecycle.ViewModelProvider
+import android.app.SearchManager
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
-import android.widget.MediaController
+import android.widget.SearchView
 import android.widget.TextView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.marvelsearcher.R
 import com.example.marvelsearcher.database.entity.CharacterEntity
 import com.example.marvelsearcher.databinding.CharacterListFragmentBinding
@@ -33,12 +30,16 @@ class CharacterList : DaggerFragment() {
 
     private val viewModel: CharacterListViewModel by viewModels { viewModelFactory }
 
+    lateinit var queryTextListener: SearchView.OnQueryTextListener
+
     lateinit var characterAdapter: CharacterAdapter
+
+    private var searchView: SearchView? = null
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         binding = CharacterListFragmentBinding.inflate(inflater)
 
@@ -65,6 +66,30 @@ class CharacterList : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel.characters.observe(viewLifecycleOwner, characterAdapter::submitList)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.options_menu, menu)
+        val searchItem = menu.findItem(R.id.search)
+        val searchManager = activity?.getSystemService(activity?.componentName.toString()) as SearchManager
+
+        if (searchView != null) {
+            searchView!!.setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName));
+
+            queryTextListener = object : SearchView.OnQueryTextListener {
+                override fun onQueryTextChange(newText: String): Boolean {
+                    Log.i("onQueryTextChange", newText)
+                    return true
+                }
+
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    Log.i("onQueryTextSubmit", query)
+                    return true
+                }
+            }
+            searchView!!.setOnQueryTextListener(queryTextListener)
+        }
+        return super.onCreateOptionsMenu(menu, menuInflater)
     }
 
 }
