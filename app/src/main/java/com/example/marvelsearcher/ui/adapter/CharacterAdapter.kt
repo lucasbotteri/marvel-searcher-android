@@ -17,6 +17,7 @@ class CharacterAdapter(val onClick: (CharacterEntity, ImageView, TextView) -> Un
     ListAdapter<CharacterEntity, CharacterAdapter.ViewHolder>(DiffCallback()) {
 
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         val withDataBinding:  CharacterItemBinding = DataBindingUtil.inflate(

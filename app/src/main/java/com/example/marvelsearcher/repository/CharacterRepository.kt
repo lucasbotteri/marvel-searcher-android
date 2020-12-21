@@ -17,6 +17,10 @@ class CharacterRepository @Inject constructor (private val characterService: Cha
     suspend fun getCharactersByName(name: String) {
         // TODO Handle error responses
         withContext(Dispatchers.IO){
+            // TODO This should be smarter
+            // Having a query to replicate backend query? "select * from character where name like :name"
+            // Checking if already exists results do not fetch?
+            characterDAO.deleteAll()
             val charactersResponse = characterService.getCharactersByName(name).data.results.asDatabaseEntity()
             characterDAO.insertAll(*charactersResponse.toTypedArray())
         }

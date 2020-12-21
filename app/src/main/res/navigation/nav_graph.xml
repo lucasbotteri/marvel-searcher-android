@@ -9,18 +9,22 @@
     <fragment
         android:id="@+id/characterList"
         android:name="com.example.marvelsearcher.ui.CharacterList"
-        android:label="character_list_fragment"
+        android:label="@string/app_name"
         tools:layout="@layout/character_list_fragment" >
         <action
             android:id="@+id/action_characterList_to_characterDetails"
             app:destination="@id/characterDetails"
             app:launchSingleTop="false"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
             app:popUpTo="@id/characterList" />
     </fragment>
     <fragment
         android:id="@+id/characterDetails"
         android:name="com.example.marvelsearcher.ui.CharacterDetails"
-        android:label="character_details_fragment"
+        android:label="Character Details"
         tools:layout="@layout/character_details_fragment" >
         <argument
             android:name="characterId"
