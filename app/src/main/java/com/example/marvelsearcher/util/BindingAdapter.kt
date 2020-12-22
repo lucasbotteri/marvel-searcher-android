@@ -2,6 +2,7 @@ package com.example.marvelsearcher.util
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 
 /**
@@ -9,7 +10,10 @@ import com.bumptech.glide.Glide
  */
 @BindingAdapter("imageUrl")
 fun setImageUrl(imageView: ImageView, url: String?) {
+
     url?.let {
-        Glide.with(imageView).load(it).into(imageView)
+        Glide.with(imageView)
+                .load(it)
+                .into(imageView)
     }
 }

@@ -17,6 +17,7 @@ class CharacterAdapter(val onClick: (CharacterEntity, ImageView, TextView) -> Un
     ListAdapter<CharacterEntity, CharacterAdapter.ViewHolder>(DiffCallback()) {
 
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         val withDataBinding:  CharacterItemBinding = DataBindingUtil.inflate(
@@ -35,7 +36,6 @@ class CharacterAdapter(val onClick: (CharacterEntity, ImageView, TextView) -> Un
         // TODO should i do this?
         holder.viewDataBinding.executePendingBindings()
     }
-
 
     class ViewHolder(val viewDataBinding: CharacterItemBinding): RecyclerView.ViewHolder(viewDataBinding.root){
 
